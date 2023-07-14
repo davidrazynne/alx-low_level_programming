@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * main - 102-print_comb5.c will print all possible combinations of two two-digit numbers
+ * main - 102-print_comb5.c - possible combinations of two 2-digit numbers
  * Return: Always 0 (Success)
  */
 int main(void)
