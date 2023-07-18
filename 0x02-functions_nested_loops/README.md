@@ -1,1 +1,1 @@
-examples of codes containing nested loops and functions
+functions and nested loops for c
