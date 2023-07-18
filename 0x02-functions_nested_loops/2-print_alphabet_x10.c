@@ -17,7 +17,7 @@ i = 0;
 while (i < 10)
 {
 cha = 'a';
-for (cha = 'a'; cha <='z'; cha++)
+for (cha = 'a'; cha <= 'z'; cha++)
 {
 _putchar(cha);
 
