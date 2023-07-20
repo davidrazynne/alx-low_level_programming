@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_diagonal - draws a diagonal line with a backslash \
+ * print_diagonal - draws a diagonal line with a backslash
  * @n: number of times the character \ should be printed
  */
 
