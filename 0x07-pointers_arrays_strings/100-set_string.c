@@ -2,8 +2,8 @@
 #include <stdio.h>
 /**
  * print_diagsums - a function that sets the value of a pointer to a char
- * @a: input
- * @size: input
+ * @a: the matrix of the integers
+ * @size: size of matrix
  * Return: Always 0
  */
 void print_diagsums(int *a, int size)
