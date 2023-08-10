@@ -1,10 +1,10 @@
-i#include <stdlib.h>
+#include <stdlib.h>
 #include "main.h"
 
 /**
- * *string_nconcat - this concatenates two strings.
- * @s1: the string to append (->)
- * @s2: the  string to concatenate (<-_
+ * *string_nconcat - this fxn will concatenate two strings.
+ * @s1: the string to append
+ * @s2: the  string to concatenate
  * @n: number of byts from s2 to combine to s1
  *
  * Return: pointer to the resulting string
