@@ -1,9 +1,22 @@
-global   main
-	  extern    printf
+section .data
+    hello_message db "Hello, Holberton", 0
+    format db "%s", 10, 0
+
+section .bss
+    rsp_save resq 1
+
+section .text
+    global main
+    extern printf
+
 main:
-	  mov   edi, format
-	  xor   eax, eax
-	  call  printf
-	  mov   eax, 0
-	  ret
-format: db "Hello, Holberton\n",0
+    mov [rsp_save], rsp
+
+    mov rdi, format
+    mov rsi, hello_message
+    call printf
+
+    mov rsp, qword [rsp_save]
+
+    mov rax, 60
+    xor rdi, rdi
