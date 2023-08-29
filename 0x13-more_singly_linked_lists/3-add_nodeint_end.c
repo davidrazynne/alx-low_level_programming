@@ -1,7 +1,7 @@
 #include "lists.h"
 
 /**
- * add_nodeint_end – fxn that adds a new node at the end of a listint_t
+ * add_nodeint_end - adds a node at the end of listint_t
  * @head: address to the 1st item in the linked list
  * @n: actual data (or new element)
  *newn means new node in this code.
@@ -14,7 +14,7 @@ listint_t *add_nodeint_end(listint_t **head, const int n)
 	listint_t *temp = *head;
 
 	newn = malloc(sizeof(listint_t));
-	if (!new)
+	if (!newn)
 		return (NULL);
 
 	newn->n = n;
