@@ -2,7 +2,7 @@
 
 /**
  * flip_bits - Count bits to transform numbers
- * 
+ *
  * @n: initial number
  * @m: second number
  *
