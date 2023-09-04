@@ -1,16 +1,16 @@
 #include "main.h"
-#include <stdlib.h>
 
 /**
- * read_textfile- a fxn that reads a text file & prints to POSIX stdout
- * @letters: count of letters to be read and print
- * @filename: text file being read
- * Return: w- actual count of letters (in bytes)
- * Return 0 when fxn fails, write fails, no expected bytes or filename is NULL
+ * create_file – a fxn that creates a file.
+ * @filename: A address to the name of the file that will be created
+ * @text_content: NULL terminated string to write to the file
+ *
+ * Return:  1 if successful or -1 if it fails
+ *         
  */
 int create_file(const char *filename, char *text_content)
 {
-	int fd, w, len = 0;
+	int dr, z, len = 0;
 
 	if (filename == NULL)
 		return (-1);
@@ -21,13 +21,14 @@ int create_file(const char *filename, char *text_content)
 			len++;
 	}
 
-	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
-	w = write(fd, text_content, len);
+	dr = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
+	z = write(dr, text_content, len);
 
-	if (fd == -1 || w == -1)
+	if (dr == -1 || z == -1)
 		return (-1);
 
-	close(fd);
+	close(dr);
 
 	return (1);
 }
+
