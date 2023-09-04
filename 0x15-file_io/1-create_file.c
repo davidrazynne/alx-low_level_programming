@@ -6,23 +6,28 @@
  * @letters: count of letters to be read and print
  * @filename: text file being read
  * Return: w- actual count of letters (in bytes)
- * Return  0 when fxn fails, write fails, no expected bytes or filename is NULL
+ * Return 0 when fxn fails, write fails, no expected bytes or filename is NULL
  */
-ssize_t read_textfile(const char *filename, size_t letters)
+int create_file(const char *filename, char *text_content)
 {
-	char *buf;
-	ssize_t dr;
-	ssize_t z;
-	ssize_t y;
+	int fd, w, len = 0;
 
-	dr = open(filename, O_RDONLY);
-	if (dr == -1)
-		return (0);
-	buf = malloc(sizeof(char) * letters);
-	y = read(dr, buf, letters);
-	z = write(STDOUT_FILENO, buf, y);
+	if (filename == NULL)
+		return (-1);
 
-	free(buf);
-	close(dr);
-	return (z);
+	if (text_content != NULL)
+	{
+		for (len = 0; text_content[len];)
+			len++;
+	}
+
+	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
+	w = write(fd, text_content, len);
+
+	if (fd == -1 || w == -1)
+		return (-1);
+
+	close(fd);
+
+	return (1);
 }
