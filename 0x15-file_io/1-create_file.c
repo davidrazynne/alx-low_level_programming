@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * create_file – a fxn that creates a file.
+ * * create_file - a fxn that creates a file.
  * @filename: A address to the name of the file that will be created
  * @text_content: NULL terminated string to write to the file
  *
