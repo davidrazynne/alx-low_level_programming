@@ -18,8 +18,9 @@ void close_elf(int elf);
 void check_elf(unsigned char *e_ident);
 
 /**
- *  * check_elf – This fxn will check whether a file is an ELF file
- * @e_ident: an address to an array that has ELF magic numbers.
+ * check_elf – This fxn will check whether a file is an ELF file
+ *
+ * @e_ident: an address to an array that has ELF magic numbers
  *
  * Description: file is not an ELF file - exit code 98
  */
