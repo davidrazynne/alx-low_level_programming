@@ -27,7 +27,7 @@ void check_elf(unsigned char *e_ident)
 {
 	int _index;
 
-	for (_index = 0; index < 4; index++)
+	for (_index = 0; _index < 4; _index++)
 	{
 		if (e_ident[_index] != 127 &&
 		    e_ident[_index] != 'E' &&
@@ -53,7 +53,7 @@ void print_magic(unsigned char *e_ident)
 
 	for (_index = 0; _index < EI_NIDENT; _index++)
 	{
-		printf("%02x", e_ident[index]);
+		printf("%02x", e_ident[_index]);
 
 		if (_index == EI_NIDENT - 1)
 			printf("\n");
@@ -309,6 +309,6 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	print_entry(header->e_entry, header->e_ident);
 
 	free(header);
-	close_elf(o);
+	close_elf(e);
 	return (0);
 }
