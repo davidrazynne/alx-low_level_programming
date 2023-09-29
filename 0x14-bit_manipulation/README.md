@@ -1,0 +1,8 @@
+t manipulation involving mainly
+
+&
+^
+~
+|
+<<
+>>
