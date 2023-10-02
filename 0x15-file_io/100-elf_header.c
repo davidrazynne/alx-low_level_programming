@@ -1,69 +1,83 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
+#include <stdint.h>
 #include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+#include <fcntl.h>
+#include <string.h>
 
-#define BUFFER_SIZE 1024
+#define ELF_MAGIC_SIZE 4
 
-void exit_error(int code, const char *format, const char *arg)
+typedef struct
 {
-    dprintf(STDERR_FILENO, format, arg);
-    exit(code);
+	unsigned char ident[ELF_MAGIC_SIZE];
+	uint8_t class;
+	uint8_t data;
+	uint8_t version;
+	uint8_t osabi;
+	uint8_t abiversion;
+	uint8_t pad[7];
+	uint16_t type;
+	uint16_t machine;
+	uint32_t version2;
+	uint64_t entry;
+	uint64_t phoff;
+	uint64_t shoff;
+	uint32_t flags;
+	uint16_t ehsize;
+	uint16_t phentsize;
+	uint16_t phnum;
+	uint16_t shentsize;
+	uint16_t shnum;
+	uint16_t shstrndx;
+}
+ElfHeader;
+
+void print_elf_header(ElfHeader header)
+{
+	printf("Magic:   %02x %02x %02x %02x\n",
+	       header.ident[0], header.ident[1], header.ident[2], header.ident[3]);
+	printf("Class:                             %s\n",
+	       (header.class == 1) ? "ELF64" : "ELF32");
+	printf("Data:                              %s\n",
+	       (header.data == 1) ? "duo complement" : "Invalid encoding");
+	printf("Version:                           %d (current)\n", header.version);
+	printf("OS/ABI:                            %d\n", header.osabi);
+	printf("ABI Version:                       %d\n", header.abiversion);
+	printf("Type:                              0x%x\n", header.type);
+	printf("Entry point address:               0x%lx\n", header.entry);
 }
 
 int main(int argc, char *argv[])
-{
-    if (argc != 3)
-    {
-        exit_error(97, "Usage: %s file_from file_to\n", argv[0]);
-    }
+{	
 
-    const char *file_from = argv[1];
-    const char *file_to = argv[2];
+	if (argc != 2)
+	{
+		fprintf(stderr, "Usage is: %s elf_filename\n", argv[0]);
+		return (98);
+	}
 
-    /* Open the source file for reading */
-    int fd_source = open(file_from, O_RDONLY);
-    if (fd_source == -1)
-    {
-        exit_error(98, "Error: unable to read from file %s\n", file_from);
-    }
+	char *filename = argv[1];
+	int fd = open(filename, O_RDONLY);
 
-    /* Open or create the destination file for writing */
-    int fd_dest = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP);
-    if (fd_dest == -1)
-    {
-        exit_error(99, "Error: unable to write to file %s\n", file_to);
-    }
+	if (fd == -1)
 
-    char buffer[BUFFER_SIZE];
-    ssize_t bytes_read, bytes_written;
+	{
+		perror("Error ecountered while opening file");
+		return (98);
+	}
 
-    /* Copy the content from source to destination */
-    while ((bytes_read = read(fd_source, buffer, sizeof(buffer))) > 0)
-    {
-        bytes_written = write(fd_dest, buffer, bytes_read);
-        if (bytes_written == -1)
-        {
-            exit_error(99, "Error: unable to write to file %s\n", file_to);
-        }
-    }
+	ElfHeader header;
+	ssize_t bytes_read = read(fd, &header, sizeof(ElfHeader));
 
-    if (bytes_read == -1)
-    {
-        exit_error(98, "Error: unable to read from file %s\n", file_from);
-    }
+	if (bytes_read != sizeof(ElfHeader) || memcmp(header.ident, "\x7F""ELF", ELF_MAGIC_SIZE) != 0)
 
-    /* Close file descriptors */
-    if (close(fd_source) == -1)
-    {
-        exit_error(100, "Error: unable to close fd %d\n", fd_source);
-    }
-    if (close(fd_dest) == -1)
-    {
-        exit_error(100, "Error: unable to close fd %d\n", fd_dest);
-    }
+	{
+		fprintf(stderr, "%s not ELF file.\n", filename);
+		return (98);
+	}
 
-    return 0;
+	print_elf_header(header);
+
+	close(fd);
+	return (0);
 }
