@@ -1,8 +1,0 @@
-t manipulation involving mainly
-
-&
-^
-~
-|
-<<
->>
