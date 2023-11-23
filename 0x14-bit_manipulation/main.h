@@ -1,5 +1,5 @@
-#define _main_h
-#ifndef _main_h
+#define main_h
+#ifndef main_h
 
 int _putchar(char c);
 unsigned int binary_to_uint(const char *b);
