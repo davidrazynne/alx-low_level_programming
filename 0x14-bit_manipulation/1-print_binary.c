@@ -1,26 +1,26 @@
 #include "main.h"
 
 /**
- * _pow - func calculates (base ^ power)
- * @base: base of the exponent
- * @power: power of the exponent
+ * _pow - fxn calc base power
+ * @base: base of the expnnt
+ * @power: power of the expnnt
  *
- * Return: value of (base ^ power)
+ * Return: value of base power
  */
 unsigned long int _pow(unsigned int base, unsigned int power)
 {
-	unsigned long int num;
+	unsigned long int decimal;
 	unsigned int a;
 
-	num = 1;
+	decimal = 1;
 	for (a = 1; a <= power; a++)
-		num *= base;
-	return (num);
+		decimal *= base;
+	return (decimal);
 }
 
 /**
- * print_binary - prints a number in binary notation
- * @n: number to print
+ * print_binary - disp a no in bnry notation
+ * @n: no to disp
  *
  * Return: void
  */
