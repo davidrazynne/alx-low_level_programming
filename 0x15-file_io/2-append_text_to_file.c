@@ -4,10 +4,10 @@
  * append_text_to_file - appends text at the end of a file.
  * @filename: points to the name of the file
  * @text_content: terminated string to add at the end of the file
- * Return: -1(function fails, user lacks write permisssons or does not exist),
+ * Return: -1(function fails, user lacks write permisssons or does not exist
  * 1 if the opposite is true.
  */
-int append_text_to_file(const char *filename, char *text_content);
+int append_text_to_file(const char *filename, char *text_content)
 {
 	int o, w, len = 0;
 

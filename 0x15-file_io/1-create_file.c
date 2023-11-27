@@ -6,7 +6,7 @@
  * @text_content:  terminated string to write to the file
  * Return: 1(success) -1 (function fails)
  */
-int create_file(const char *filename, char *text_content);
+int create_file(const char *filename, char *text_content)
 {
 	int fd, w, len = 0;
 
